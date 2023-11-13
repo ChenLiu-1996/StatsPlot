@@ -23,7 +23,7 @@ def sbplot(ax: plt.Axes,
 
     if show_individual_points:
         df = pd.DataFrame(data_arr.T, columns=method_list)
-        sns.swarmplot(ax=ax, data=df, size=individal_point_size, color='k', alpha=0.5)
+        sns.swarmplot(ax=ax, data=df, size=individal_point_size, palette=colors, alpha=0.5)
 
     ax.spines[['right', 'top']].set_visible(False)
     ax.tick_params(axis='both', which='major', labelsize=labelsize)
@@ -44,32 +44,45 @@ def sbplot(ax: plt.Axes,
 
 def test_sbplot():
     method_list = ['GRU-D', 'GRU-dt', 'ODE-RNN']
-    mse_dict = {
-        'GRU-D': np.random.normal(loc=0.3, scale=0.02, size=(10,)),
-        'GRU-dt': np.random.normal(loc=0.2, scale=0.05, size=(10,)),
-        'ODE-RNN': np.random.normal(loc=0.1, scale=0.01, size=(10,)),
+
+    auroc_dict = {
+        'GRU-D': np.clip(np.random.normal(loc=0.92, scale=0.02, size=(10,)), 0, 1),
+        'GRU-dt': np.clip(np.random.normal(loc=0.75, scale=0.03, size=(10,)), 0, 1),
+        'ODE-RNN': np.clip(np.random.normal(loc=0.98, scale=0.02, size=(10,)), 0, 1),
     }
 
     acc_dict = {
-        'GRU-D': np.clip(np.random.normal(loc=0.8, scale=0.02, size=(10,)), 0, 1),
-        'GRU-dt': np.clip(np.random.normal(loc=0.8, scale=0.05, size=(10,)), 0, 1),
-        'ODE-RNN': np.clip(np.random.normal(loc=0.9, scale=0.02, size=(10,)), 0, 1),
+        'GRU-D': np.clip(np.random.normal(loc=0.89, scale=0.02, size=(10,)), 0, 1),
+        'GRU-dt': np.clip(np.random.normal(loc=0.81, scale=0.03, size=(10,)), 0, 1),
+        'ODE-RNN': np.clip(np.random.normal(loc=0.94, scale=0.02, size=(10,)), 0, 1),
+    }
+
+    f1_dict = {
+        'GRU-D': np.clip(np.random.normal(loc=0.92, scale=0.02, size=(10,)), 0, 1),
+        'GRU-dt': np.clip(np.random.normal(loc=0.87, scale=0.03, size=(10,)), 0, 1),
+        'ODE-RNN': np.clip(np.random.normal(loc=0.95, scale=0.02, size=(10,)), 0, 1),
     }
 
     plt.rcParams['font.family'] = 'serif'
     plt.rcParams['legend.fontsize'] = 12
-    fig = plt.figure(figsize=(10, 6))
-    ax = fig.add_subplot(1, 2, 1)
-    ax = sbplot(ax, method_list, mse_dict)
-    ax.set_ylabel(r'Mean Squared Error $\downarrow$', fontsize=18)
+    fig = plt.figure(figsize=(14, 6))
+    ax = fig.add_subplot(1, 3, 1)
+    ax = sbplot(ax, method_list, acc_dict)
+    ax.set_ylabel(r'AUROC $\uparrow$', fontsize=18)
     ax.set_xlabel('Methods', fontsize=18)
 
-    ax = fig.add_subplot(1, 2, 2)
+    ax = fig.add_subplot(1, 3, 2)
     ax = sbplot(ax, method_list, acc_dict)
     ax.set_ylabel(r'Accuracy $\uparrow$', fontsize=18)
     ax.set_xlabel('Methods', fontsize=18)
+
+    ax = fig.add_subplot(1, 3, 3)
+    ax = sbplot(ax, method_list, f1_dict)
+    ax.set_ylabel(r'F1 Score $\uparrow$', fontsize=18)
+    ax.set_xlabel('Methods', fontsize=18)
+
     fig.tight_layout()
-    fig.savefig('toy_data.png')
+    fig.savefig('../assets/sbplot_example.png')
 
 
 if __name__ == '__main__':
