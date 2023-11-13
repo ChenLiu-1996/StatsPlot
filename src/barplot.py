@@ -88,37 +88,3 @@ def test_sbplot():
 if __name__ == '__main__':
     test_sbplot()
 
-
-# # Customizing the bar plot according to the requests
-
-# # Setting up the colors for the bars
-# colors = sns.color_palette("husl", 3)
-
-# # Redefining the plot with narrower bars and T-shaped error bars (whiskers)
-# plt.figure(figsize=(10, 6))
-
-# bar_width = 0.5  # Narrower bar width
-# for i in range(len(data)):
-#     plt.bar(labels[i], np.mean(data[i]), width=bar_width, color=colors[i],
-#             yerr=np.std(data[i]), capsize=5, error_kw={'capthick': 2, 'elinewidth': 2, 'alpha':0.7})
-
-# # Adding elegant coloring using a Seaborn palette
-# sns.set_palette("husl")
-
-# # Drawing horizontal lines for p-value annotations and annotating the p-values
-# for i, (pair, p_val) in enumerate(p_values.items()):
-#     group1, group2 = [int(x[-1]) - 1 for x in pair.split(' vs ')]
-#     y, h, col = y_max + (i+1)*y_step/2, y_step/10, 'k'
-#     x1, x2 = group1 - bar_width/2, group2 + bar_width/2
-
-#     plt.plot([x1, x1, x2, x2], [y, y+h, y+h, y], lw=1.5, c=col)
-#     plt.text((x1+x2)*.5, y+h, f"p={p_val:.1e}", ha='center', va='bottom', color=col)
-
-# # Finalizing the plot
-# plt.title('Sample Data with Pairwise Comparisons')
-# plt.ylabel('Value')
-# plt.ylim(0, y_max + y_step * (len(p_values) + 1))
-# plt.tight_layout()
-
-# # Show plot
-# plt.show()
