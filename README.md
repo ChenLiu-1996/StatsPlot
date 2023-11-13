@@ -12,7 +12,7 @@ Please kindly **Star** [![Github Stars](https://img.shields.io/github/stars/Chen
 
 ### Statistical Bar Plot
 
-<img src="assets/sbplot_example.png" height="200"/>
+<img src="assets/sbplot_example.png" height="400"/>
 
 
 
