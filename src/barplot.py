@@ -11,6 +11,7 @@ def sbplot(ax: plt.Axes,
            data_dict: Dict[str, np.array],
            pvals_dict: Dict[str, float] = None,
            show_individual_points: bool = True,
+           color_palette: str = 'muted',
            individal_point_size: float = 10,
            labelsize: int = 16,
            y_buffer_ratio: int = 0.05,
@@ -34,7 +35,7 @@ def sbplot(ax: plt.Axes,
     '''
 
     n_bars = len(method_list)
-    colors = sns.color_palette('muted', n_bars)
+    colors = sns.color_palette(color_palette, n_bars)
     data_arr = np.array([data_dict[k] for k in method_list])
 
     # Plot the individual points.
