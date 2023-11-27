@@ -14,7 +14,8 @@ def sbplot(ax: plt.Axes,
            color_palette: str = 'muted',
            individal_point_size: float = 10,
            labelsize: int = 16,
-           y_buffer_ratio: int = 0.05,
+           y_buffer_ratio: float = 0.05,
+           text_buffer_ratio: float = 1e-2,
            ymin: float = None,
            ymax: float = None) -> plt.Axes:
     '''
@@ -38,9 +39,11 @@ def sbplot(ax: plt.Axes,
     colors = sns.color_palette(color_palette, n_bars)
     data_arr = np.array([data_dict[k] for k in method_list])
 
+    single_point = len(data_arr.T) == 1
+
     # Plot the individual points.
     # Seaborn works the best with dataframes, hence the conversion.
-    if show_individual_points:
+    if show_individual_points and not single_point:
         df = pd.DataFrame(data_arr.T, columns=method_list)
         sns.swarmplot(ax=ax, data=df, size=individal_point_size, color='k', marker="$\circ$")
 
@@ -49,9 +52,10 @@ def sbplot(ax: plt.Axes,
 
     # Plot the bars one by one.
     for i in range(n_bars):
+        y_error = np.std(data_dict[method_list[i]]) if not single_point else None
         ax.bar(method_list[i],
                np.mean(data_dict[method_list[i]]),
-               yerr=np.std(data_dict[method_list[i]]),
+               yerr=y_error,
                edgecolor=(0, 0, 0, 1),
                facecolor=(*colors[i][:3], 0.5), # set facecolor-specific alpha.
                width=0.5,
@@ -60,13 +64,18 @@ def sbplot(ax: plt.Axes,
                error_kw={'capthick': 3, 'elinewidth': 3, 'alpha': 1})
 
     # Compute the range of y for display.
-    ymax_baseline = np.max(data_arr) if ymax is None else ymax
-    ymin_baseline = np.min(data_arr) if ymin is None else ymin
+    if not single_point:
+        ymax_baseline = max(np.max(data_arr),
+                            np.max(np.mean(data_arr, axis=1) + np.std(data_arr, axis=1))) if ymax is None else ymax
+        ymin_baseline = min(np.min(data_arr),
+                            np.min(np.mean(data_arr, axis=1) - np.std(data_arr, axis=1))) if ymin is None else ymin
+    else:
+        ymax_baseline = np.max(data_arr) if ymax is None else ymax
+        ymin_baseline = np.min(data_arr) if ymin is None else ymin
     height_range = ymax_baseline - ymin_baseline
     y_buffer = y_buffer_ratio * height_range
-    if ymin is not None:
-        ymin = min(ymin, np.min(data_arr) - y_buffer)
-    else:
+    text_buffer = text_buffer_ratio * height_range
+    if ymin is None:
         ymin = np.min(data_arr) - y_buffer
 
     # Plot the indicators of p-values.
@@ -88,7 +97,7 @@ def sbplot(ax: plt.Axes,
             line_x = [method1_idx, method2_idx]
             line_y = [ymax_baseline, ymax_baseline]
             ax.plot(line_x, line_y, 'k', linewidth=1)
-            ax.text(np.mean(line_x), ymax_baseline, asterisks, horizontalalignment='center')
+            ax.text(np.mean(line_x), ymax_baseline + text_buffer, asterisks, horizontalalignment='center')
 
             ymax_baseline += y_buffer
 
