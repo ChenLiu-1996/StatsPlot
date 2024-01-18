@@ -12,7 +12,7 @@ Please kindly **Star** [![Github Stars](https://img.shields.io/github/stars/Chen
 
 ## Installation
 ```
-python -m pip install statistical-plot
+pip install statistical-plot
 ```
 
 ## Example Plots
