@@ -1,6 +1,6 @@
 # Tools for Statistical Plotting
 
-Chen Liu @ Krishnaswamy Lab, Yale University
+**Chen Liu** @ [Krishnaswamy Lab](https://krishnaswamylab.org/members), Yale University
 
 [![Latest PyPI version](https://img.shields.io/pypi/v/StatsPlot.svg)](https://pypi.org/project/StatsPlot/)
 [![PyPI license](https://img.shields.io/pypi/l/statistical-plot.svg)](https://pypi.python.org/pypi/statistical-plot/)
