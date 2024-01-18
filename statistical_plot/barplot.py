@@ -12,7 +12,7 @@ def sbplot(ax: plt.Axes,
            pvals_dict: Dict[str, float] = None,
            show_individual_points: bool = True,
            color_palette: str = 'muted',
-           individal_point_size: float = 10,
+           individal_point_size: float = 8,
            labelsize: int = 16,
            y_buffer_ratio: float = 0.05,
            text_buffer_ratio: float = 1e-2,
@@ -124,36 +124,36 @@ def pval_to_asterisk(pval: float) -> str:
 def test_sbplot():
     np.random.seed(1)
 
-    method_list = ['GRU-D', 'GRU-dt', 'ODE-RNN']
+    method_list = ['method_1', 'method_2', 'method_3']
 
     auroc_data_dict = {
-        'GRU-D': np.clip(np.random.normal(loc=0.92, scale=0.04, size=(10,)), 0, 1),
-        'GRU-dt': np.clip(np.random.normal(loc=0.75, scale=0.03, size=(10,)), 0, 1),
-        'ODE-RNN': np.clip(np.random.normal(loc=0.98, scale=0.02, size=(10,)), 0, 1),
+        'method_1': np.clip(np.random.normal(loc=0.92, scale=0.04, size=(10,)), 0, 1),
+        'method_2': np.clip(np.random.normal(loc=0.75, scale=0.03, size=(10,)), 0, 1),
+        'method_3': np.clip(np.random.normal(loc=0.98, scale=0.02, size=(10,)), 0, 1),
     }
     auroc_pvals_dict = {
-        'GRU-D vs ODE-RNN': 0.01,
-        'GRU-dt vs ODE-RNN': 5e-5,
+        'method_1 vs method_3': 0.01,
+        'method_2 vs method_3': 5e-5,
     }
 
     acc_data_dict = {
-        'GRU-D': np.clip(np.random.normal(loc=0.89, scale=0.05, size=(10,)), 0, 1),
-        'GRU-dt': np.clip(np.random.normal(loc=0.81, scale=0.04, size=(10,)), 0, 1),
-        'ODE-RNN': np.clip(np.random.normal(loc=0.94, scale=0.03, size=(10,)), 0, 1),
+        'method_1': np.clip(np.random.normal(loc=0.89, scale=0.05, size=(10,)), 0, 1),
+        'method_2': np.clip(np.random.normal(loc=0.81, scale=0.04, size=(10,)), 0, 1),
+        'method_3': np.clip(np.random.normal(loc=0.94, scale=0.03, size=(10,)), 0, 1),
     }
     acc_pvals_dict = {
-        'GRU-D vs ODE-RNN': 0.01,
-        'GRU-dt vs ODE-RNN': 0.001,
+        'method_1 vs method_3': 0.01,
+        'method_2 vs method_3': 0.001,
     }
 
     f1_data_dict = {
-        'GRU-D': np.clip(np.random.normal(loc=0.92, scale=0.04, size=(10,)), 0, 1),
-        'GRU-dt': np.clip(np.random.normal(loc=0.87, scale=0.03, size=(10,)), 0, 1),
-        'ODE-RNN': np.clip(np.random.normal(loc=0.95, scale=0.02, size=(10,)), 0, 1),
+        'method_1': np.clip(np.random.normal(loc=0.92, scale=0.04, size=(10,)), 0, 1),
+        'method_2': np.clip(np.random.normal(loc=0.87, scale=0.03, size=(10,)), 0, 1),
+        'method_3': np.clip(np.random.normal(loc=0.95, scale=0.02, size=(10,)), 0, 1),
     }
     f1_pvals_dict = {
-        'GRU-D vs ODE-RNN': 0.01,
-        'GRU-dt vs ODE-RNN': 3e-4,
+        'method_1 vs method_3': 0.01,
+        'method_2 vs method_3': 3e-4,
     }
 
     plt.rcParams['font.family'] = 'serif'
@@ -171,7 +171,7 @@ def test_sbplot():
     ax = sbplot(ax=ax, method_list=method_list, data_dict=f1_data_dict, pvals_dict=f1_pvals_dict, ymin=0)
     ax.set_ylabel('F1 Score', fontsize=18)
 
-    fig.tight_layout()
+    fig.tight_layout(pad=1)
     fig.savefig('../assets/sbplot_example.png')
 
 
