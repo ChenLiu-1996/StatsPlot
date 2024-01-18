@@ -2,7 +2,7 @@
 
 **Chen Liu** @ [Krishnaswamy Lab](https://krishnaswamylab.org/members), Yale University
 
-[![Latest PyPI version](https://img.shields.io/pypi/v/StatsPlot.svg)](https://pypi.org/project/statistical-plot/)
+[![Latest PyPI version](https://img.shields.io/pypi/v/statistical-plot.svg)](https://pypi.org/project/statistical-plot/)
 [![PyPI license](https://img.shields.io/pypi/l/statistical-plot.svg)](https://pypi.python.org/pypi/statistical-plot/)
 [![PyPI download month](https://img.shields.io/pypi/dm/statistical-plot.svg)](https://pypi.python.org/pypi/statistical-plot/)
 [![PyPI download day](https://img.shields.io/pypi/dd/statistical-plot.svg)](https://pypi.python.org/pypi/statistical-plot/)
