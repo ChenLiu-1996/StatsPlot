@@ -5,7 +5,7 @@ with open('README.md') as f:
 
 setup(
     name='statistical-plot',
-    version='0.7',
+    version='0.8',
     license='MIT',
     author='Chen Liu',
     author_email='chen.liu.cl2482@yale.edu',
