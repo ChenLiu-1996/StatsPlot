@@ -47,7 +47,8 @@ def sbplot(ax: plt.Axes,
         df = pd.DataFrame(data_arr.T, columns=method_list)
         sns.swarmplot(ax=ax, data=df, size=individal_point_size, color='k', marker="$\circ$")
 
-    ax.spines[['right', 'top']].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
     ax.tick_params(axis='both', which='major', labelsize=labelsize)
 
     # Plot the bars one by one.
